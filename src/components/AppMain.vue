@@ -1,11 +1,16 @@
 <script>
+import CardList from './CardList.vue';
+
 export default {
-    name: "AppMain"
+    name: "AppMain",
+    components: {
+        CardList
+    }
 }
 </script>
 <template lang="">
     <main>
-        
+        <CardList/>
     </main>
 </template>
 <style lang="scss" scoped>
@@ -15,6 +20,7 @@ export default {
 
 main {
     background-color: $colore-primario;
+    padding: 30px 0px;
 
 }
 </style>
