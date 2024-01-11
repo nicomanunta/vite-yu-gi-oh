@@ -1,4 +1,4 @@
-<!-- <script>
+<script>
 
 export default {
     name: "AppLoader",
@@ -43,4 +43,4 @@ h1 {
     color: $colore-secondario;
 
 }
-</style> -->
+</style>
