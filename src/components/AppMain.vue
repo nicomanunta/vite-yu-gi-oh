@@ -1,18 +1,17 @@
 <script>
 import CardList from './CardList.vue';
-
+import AppSelect from './AppSelect.vue';
 
 export default {
     name: "AppMain",
     components: {
-        CardList
+        CardList,
+        AppSelect
     }
 }
 </script>
 <template lang="">
-    <main>
-        <CardList/>
-    </main>
+    
 </template>
 <style lang="scss" scoped>
 @use "../styles/partials/variables" as *;

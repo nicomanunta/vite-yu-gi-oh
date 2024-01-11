@@ -1,14 +1,17 @@
 <script>
-import { store } from "./store.js"
-import AppHeader from './components/AppHeader.vue';
-import AppMain from './components/AppMain.vue';
 import axios from 'axios';
+
+import AppHeader from './components/AppHeader.vue';
+import AppSelect from './components/AppSelect.vue';
+import CardList from './components/CardList.vue';
 import AppLoader from './components/AppLoader.vue';
 
+import { store } from "./store.js"
 export default {
   components: {
     AppHeader,
-    AppMain,
+    AppSelect,
+    CardList,
     AppLoader
   },
   data() {
@@ -18,11 +21,20 @@ export default {
 
   },
   created() {
-    axios.get(store.endpoint).then((response) => {
-      store.cardList = response.data.data
-      store.loading = false
-    })
+    this.getCardList()
+    // axios.get(store.endpoint_archetype).then((response) => {
+    //   store.archetypeList = response.data.archetype_name
 
+    // })
+
+  },
+  methods: {
+    getCardList() {
+      axios.get(store.endpoint).then((response) => {
+        store.cardList = response.data.data
+        store.loading = false
+      })
+    }
   },
 }
 </script>
@@ -33,7 +45,8 @@ export default {
     <div v-else> 
       
       <AppHeader/>
-      <AppMain/>
+      <AppSelect @perform_search="getCardList"/>
+        <CardList/>
     </div>
   </div>
 </template>
