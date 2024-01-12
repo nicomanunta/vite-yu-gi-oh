@@ -27,7 +27,7 @@ export default {
     <div class="container">
         <div class="row p-0">
             <div class="col-3 mb-3 p-0">
-                <select class="form-select" aria-label="Default select example" v-model="store.search" @change=$emit(filter_cards)> 
+                <select class="form-select" aria-label="Default select example" v-model="store.search" @change="$emit('filter_cards')"> 
                     <option value="">
                         Tutti
                     </option>

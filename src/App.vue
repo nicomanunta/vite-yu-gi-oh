@@ -50,7 +50,7 @@ export default {
       
     <main v-else> 
       <AppHeader/>
-      <AppSelect @filter_cards="FilterCardsByArchetype"/>
+      <AppSelect @filter_cards="filterCardsByArchetype"/>
       
       <CardList/> 
     </main>
