@@ -1,18 +1,18 @@
 <script>
-import axios from 'axios';
 
 import AppHeader from './components/AppHeader.vue';
-import AppSelect from './components/AppSelect.vue';
 import CardList from './components/CardList.vue';
 import AppLoader from './components/AppLoader.vue';
+import AppSelect from './components/AppSelect.vue';
 
+import axios from 'axios';
 import { store } from "./store.js"
 export default {
   components: {
     AppHeader,
-    AppSelect,
     CardList,
-    AppLoader
+    AppLoader,
+    AppSelect,
   },
   data() {
     return {
@@ -22,18 +22,24 @@ export default {
   },
   created() {
     this.getCardList()
-    // axios.get(store.endpoint_archetype).then((response) => {
-    //   store.archetypeList = response.data.archetype_name
-
-    // })
-
   },
   methods: {
     getCardList() {
-      axios.get(store.endpoint).then((response) => {
+      let apiUrl = store.endpoint
+
+      if (store.search !== "") {
+        apiUrl += `&archetype=${store.search}`
+      }
+
+      axios.get(apiUrl).then((response) => {
         store.cardList = response.data.data
         store.loading = false
       })
+    },
+    filterCardsByArchetype() {
+      console.log(store.search)
+      this.getCardList();
+
     }
   },
 }
@@ -42,15 +48,21 @@ export default {
   <div>
     <AppLoader v-if="store.loading"/>
       
-    <div v-else> 
-      
+    <main v-else> 
       <AppHeader/>
-      <AppSelect @perform_search="getCardList"/>
-        <CardList/>
-    </div>
+      <AppSelect @filter_cards="FilterCardsByArchetype"/>
+      
+      <CardList/> 
+    </main>
   </div>
 </template>
 <style lang="scss">
 @use "./styles/generals.scss" as *;
 @use "./styles/partials/variables" as *;
+
+main {
+  background-color: $colore-primario;
+  padding: 30px 0px;
+
+}
 </style>

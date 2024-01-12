@@ -1,40 +1,43 @@
 <script>
-import { store } from '../store';
+import { store } from '../store.js';
+import axios from 'axios';
 
 export default {
     name: "AppSelect",
     data() {
         return {
             store,
-            types: [
-                "Alien",
-                "Infernoble Arms",
-                "Noble Knight",
-                "Melodious",
-                "Archfiend",
-                " ",
-
-            ]
+            archetypesList: []
         }
     },
+    created() {
+        this.getArchetypesList();
+    },
+    methods: {
+        getArchetypesList() {
+            axios.get(store.endpointArchetypes).then((response) => {
+
+                this.archetypesList = response.data
+            })
+        },
+    }
 }
 </script>
 <template lang="">
     <div class="container">
-        <div class="row p-0 ">
-            <div class="col-3 mb-3 p-0 ">
-                <select class="form-select" aria-label="Default select example" v-model="store.status">
-                    
-                    <option value="" v-for="type, index in types" :key="index" :value="type">
-                        {{type}}
+        <div class="row p-0">
+            <div class="col-3 mb-3 p-0">
+                <select class="form-select" aria-label="Default select example" v-model="store.search" @change=$emit(filter_cards)> 
+                    <option value="">
+                        Tutti
                     </option>
+                    <option :value="archetype.archetype_name" v-for="archetype, index in archetypesList" :key="index" >
+                        {{ archetype.archetype_name }}
+                    </option>  
                     
                 </select>
             </div>
-            <div class="col-9 ">
-                <button type="button" class="btn btn-success me-2 " @click="$emit("perform_search")">Search</button>
-                <button type="button" class="btn btn-warning" @click="">Reset</button>
-            </div>
+            
 
         </div>
     </div>
